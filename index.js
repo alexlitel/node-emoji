@@ -55,11 +55,11 @@ const core = {
 
     const res = inverted.get(emoji)
 
-    if (res === undefined) {
+    if (!res) {
       return null
     }
 
-    return markdown ? `:${res}:` : res
+    return markdown ? ` :${res.replace(/\s/g, '_')}: ` : res.replace(/\s/g, '_')
   },
 
   random () {
@@ -126,6 +126,7 @@ const core = {
     return [...string]
       .map(char => core.which(char, { markdown: true }) || char)
       .join('')
+      .replace(/\s+|\n+/g, ' ')
   }
 }
 

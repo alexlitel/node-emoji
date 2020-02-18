@@ -7,8 +7,8 @@ test('get', t => {
 })
 
 test('which', t => {
-  t.is(emoji.which('☕'), 'hot beverage')
-  t.is(emoji.which('☕', { markdown: true }), ':hot beverage:')
+  t.is(emoji.which('☕'), 'hot_beverage')
+  t.is(emoji.which('☕', { markdown: true }), ' :hot_beverage: ')
 })
 
 test('has', t => {
@@ -40,8 +40,8 @@ test('emojify', t => {
 })
 
 test('unemojify', t => {
-  t.is(emoji.unemojify('a ☕ c'), 'a :hot beverage: c')
-  t.is(emoji.unemojify('a ☕ 🌭 c'), 'a :hot beverage: :hot dog: c')
+  t.is(emoji.unemojify('a ☕ c'), 'a :hot_beverage: c')
+  t.is(emoji.unemojify('a ☕ 🌭 c'), 'a :hot_beverage: :hot_dog: c')
 })
 
 test('search', t => {
@@ -49,6 +49,6 @@ test('search', t => {
 })
 
 test('find', t => {
-  t.deepEqual(emoji.find('💯'), { key: 'hundred points', emoji: '💯' })
+  t.deepEqual(emoji.find('💯'), { key: 'hundred_points', emoji: '💯' })
   t.is(emoji.find('a'), null)
 })
