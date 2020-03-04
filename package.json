@@ -34,6 +34,7 @@
 	],
 	"dependencies": {
 		"emoji.json": "^12.1.0",
+		"graphemesplit": "^2.2.0",
 		"ow": "^0.15.0"
 	},
 	"devDependencies": {

@@ -1,6 +1,7 @@
 'use strict'
 
 const { default: ow } = require('ow')
+const graphemesplit = require('graphemesplit')
 
 const emojiData = require('emoji.json').map(({ name: key, char: emoji }) => [key, emoji])
 const invertedEmojiData = emojiData.map(([key, emoji]) => ([emoji, key]))
@@ -23,7 +24,7 @@ function replace (string, replacement, { removeSpaces = false } = {}) {
 
   const replaceFn = typeof replacement === 'function' ? replacement : () => replacement
 
-  const chars = [...string]
+  const chars = graphemesplit(string)
 
   return chars
     .map((char, i) => {
@@ -52,14 +53,15 @@ const core = {
   which (emoji, { markdown = false } = {}) {
     ow(emoji, ow.string)
     ow(markdown, ow.boolean)
-
-    const res = inverted.get(emoji)
+    const res = (inverted.get(emoji) || '')
+      .replace(/\s/g, '_').replace(/:/g, '')
+      .toLowerCase()
 
     if (!res) {
       return null
     }
 
-    return markdown ? ` :${res.replace(/\s/g, '_')}: ` : res.replace(/\s/g, '_')
+    return markdown ? ` :${res}: ` : res
   },
 
   random () {
@@ -122,8 +124,7 @@ const core = {
 
   unemojify (string) {
     ow(string, ow.string)
-
-    return [...string]
+    return graphemesplit(string)
       .map(char => core.which(char, { markdown: true }) || char)
       .join('')
       .replace(/\s+|\n+/g, ' ')

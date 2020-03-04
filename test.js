@@ -41,6 +41,7 @@ test('emojify', t => {
 
 test('unemojify', t => {
   t.is(emoji.unemojify('a ☕ c'), 'a :hot_beverage: c')
+  t.is(emoji.unemojify('a 👩🏻‍🤝‍👩🏽 c'), 'a :women_holding_hands_light_skin_tone,_medium_skin_tone: c')
   t.is(emoji.unemojify('a ☕ 🌭 c'), 'a :hot_beverage: :hot_dog: c')
 })
 
